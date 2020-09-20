@@ -15,6 +15,7 @@ const app = express();
 app.set("view engine", "pug");
 
 // Middleware
+
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -22,6 +23,10 @@ app.use(helmet({ contentSecurityPolicy: false }));
 app.use(morgan("dev"));
 
 app.use(localsMiddleware);
+
+// Playing Video
+app.use("/uploads", express.static("uploads"));
+// localhost:4000/uploads로 가면 'upload'라는 directory안으로 들어간다.
 
 // Router, Routes
 app.use(routes.home, globalRouter);

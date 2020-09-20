@@ -14,8 +14,8 @@ const CHANGE_PASSWORD = "/change-password";
 // Videos
 const VIDEOS = "/videos";
 const UPLOAD = "/upload";
-const VIDEOS_DETAIL = "/:id";
-const EDIT_VIDEO = "/:id/edit";
+const VIDEOS_DETAIL = "/:id"; //:id 로인해 req.params의 값으로 id를 얻을 수 있다.
+const EDIT_VIDEO = "/:id/edit"; //만약 :id가 아니라 :potato이라면 potato가 req.params의 값으로 나온다.
 const DELETE_VIDEO = "/:id/delete";
 
 const routes = {
@@ -43,8 +43,20 @@ const routes = {
       return VIDEOS_DETAIL;
     }
   },
-  editVideo: EDIT_VIDEO,
-  deleteVideo: DELETE_VIDEO,
+  editVideo: (id) => {
+    if (id) {
+      return `/videos/${id}/edit`;
+    } else {
+      return EDIT_VIDEO;
+    }
+  },
+  deleteVideo: (id) => {
+    if (id) {
+      return `/videos/${id}/delete`;
+    } else {
+      return DELETE_VIDEO;
+    }
+  },
 };
 
 export default routes;

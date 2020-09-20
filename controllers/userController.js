@@ -5,7 +5,7 @@ export const getJoin = (req, res) => {
 };
 export const postJion = (req, res) => {
   const {
-    body: { name, email, password, password2 },
+    body: { password, password2 },
   } = req;
   if (password !== password2) {
     res.status(404);
@@ -29,7 +29,6 @@ export const logout = (req, res) => {
   res.redirect(routes.home);
 };
 
-export const users = (req, res) => res.render("users", { pageTitle: "Users" });
 export const editProfile = (req, res) =>
   res.render("editProfile", { pageTitle: "Edit Profile" });
 export const changePassword = (req, res) =>
