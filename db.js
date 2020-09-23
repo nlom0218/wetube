@@ -1,7 +1,8 @@
 // First be sure you have MongoDB and Node.js installed.
 
 import mongoose from "mongoose";
-import dotenv from "dotenv"; //Afer import dotenv creat a .evn file
+import dotenv from "dotenv"; //Afer import dotenv creata .evn file
+
 dotenv.config(); // .evn파일 안에 있는 정보를 불러온다.
 
 mongoose.connect(process.env.MONGO_URL, {

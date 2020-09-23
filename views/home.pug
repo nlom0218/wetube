@@ -2,8 +2,7 @@ extends layouts/main
 include mixins/videoBlock
 
 block content
-    h3 Hello everyone!
-    .videos
+    .home-videos
         each item in videos
             +videoBlock({
                 videoFile:item.fileUrl,

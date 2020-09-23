@@ -26,7 +26,8 @@ app.use(localsMiddleware);
 
 // Playing Video
 app.use("/uploads", express.static("uploads"));
-// localhost:4000/uploads로 가면 'upload'라는 directory안으로 들어간다.
+// localhost:4000/uploads로 가면 'uploads'라는 directory안으로 들어간다.
+app.use("/static", express.static("static"));
 
 // Router, Routes
 app.use(routes.home, globalRouter);
