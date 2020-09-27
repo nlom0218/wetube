@@ -3,12 +3,13 @@ import Video from "../models/Video";
 
 //fucntion에 async를 추가함으로써 function의 어떤 부분은 꼭 기다려야 한다.
 export const home = async (req, res) => {
+  console.log(req.user);
   try {
     const videos = await Video.find({}).sort({ _id: -1 });
     //await은 다음 과정이 끝날 때까지 잠시 기다려라.
     //await MyModel.find({}) - find all documents
     //.sort({_id:-1}) => 데이터의 순서를 바꾸겠다! -1은 내리차순으로!
-    console.log(videos);
+    //console.log(videos);
     res.render("home", { pageTitle: "Home", videos });
   } catch (error) {
     console.log(error);
@@ -55,7 +56,7 @@ export const postUpload = async (req, res) => {
     title,
     description,
   });
-  console.log(newVideo);
+  //console.log(newVideo);
   res.redirect(routes.videosDetail(newVideo.id));
 };
 
@@ -68,7 +69,7 @@ export const videosDetail = async (req, res) => {
   } = req;
   try {
     const video = await Video.findById(id);
-    console.log(video);
+    //console.log(video);
     res.render("videosDetail", { pageTitle: video.title, video });
   } catch (error) {
     res.redirect(routes.home);

@@ -10,6 +10,7 @@ const USERS = "/users";
 const USER_DETAIL = "/:id";
 const EDIT_PROFILE = "/edit-profile";
 const CHANGE_PASSWORD = "/change-password";
+const ME = "/me";
 
 // Videos
 const VIDEOS = "/videos";
@@ -17,6 +18,18 @@ const UPLOAD = "/upload";
 const VIDEOS_DETAIL = "/:id"; //:id 로인해 req.params의 값으로 id를 얻을 수 있다.
 const EDIT_VIDEO = "/:id/edit"; //만약 :id가 아니라 :potato이라면 potato가 req.params의 값으로 나온다.
 const DELETE_VIDEO = "/:id/delete";
+
+// Github
+const GITHUB = "/auth/github";
+const GITHUB_CALLBACK = "/auth/github/callback";
+
+// Facebook
+const FB = "/auth/facebook";
+const FB_CALLBACK = "/auth/facebook/callback";
+
+// Kakao
+const KK = "/auth/kakao";
+const KK_CALLBACK = "/auth/kakao/callback";
 
 const routes = {
   home: HOME,
@@ -57,6 +70,13 @@ const routes = {
       return DELETE_VIDEO;
     }
   },
+  github: GITHUB,
+  githubCallback: GITHUB_CALLBACK,
+  me: ME,
+  facebook: FB,
+  facebookCallback: FB_CALLBACK,
+  kakao: KK,
+  kakaoCallback: KK_CALLBACK,
 };
 
 export default routes;

@@ -1,6 +1,3 @@
-// Make locals Middleware
-// local변수를 global변수로 사용할 수 있도록 만들어 주는 Middleware
-
 import routes from "./routes";
 import multer from "multer";
 //Multer는 파일 업로드를 위해 사용되는 multipart/form-data 를 다루기 위한 node.js의 미들웨어이다.
@@ -8,14 +5,30 @@ import multer from "multer";
 const multerVideo = multer({ dest: "uploads/videos/" });
 //만약 /uplads/vidoes/로 입력하면 컴퓨터의 root에 uploads를 만들 것이다. 조심***
 
+// Make locals Middleware
+// local변수를 global변수로 사용할 수 있도록 만들어 주는 Middleware
 export const localsMiddleware = (req, res, next) => {
   res.locals.siteName = "WeTube";
   res.locals.routes = routes;
-  res.locals.user = {
-    isAuthenticated: false,
-    id: 1,
-  };
+  res.locals.loggedUser = req.user || null;
   next();
+};
+
+export const onlyPublic = (req, res, next) => {
+  //이 미들웨어는 로그인이 되어있을 때 이 페잊는 튕겨내라! 라는 역할이야~
+  if (req.user) {
+    res.redirect(routes.home);
+  } else {
+    next();
+  }
+};
+
+export const onlyPrivate = (req, res, next) => {
+  if (req.user) {
+    next();
+  } else {
+    res.redirect(routes.home);
+  }
 };
 
 export const uploadVideo = multerVideo.single("videoFile");

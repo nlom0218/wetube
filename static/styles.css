@@ -188,6 +188,10 @@ input[type="submit"] {
 video {
   width: 850px; }
 
+a {
+  color: inherit;
+  text-decoration: none; }
+
 .header {
   background-color: #ea232c;
   margin-bottom: 50px;
@@ -272,7 +276,9 @@ video {
       margin-bottom: 25px; }
     .form-container form input[type="submit"] {
       background-color: #3498db;
-      color: white; }
+      color: white;
+      display: flex;
+      justify-content: center; }
   .form-container a {
     max-width: 320px;
     width: 100%; }
@@ -299,8 +305,8 @@ video {
   .social-login .social-login--github {
     background-color: #444444;
     color: white; }
-  .social-login .social-login--facebook {
-    background-color: #3a5998;
+  .social-login .social-login--kakao {
+    background-color: #f5c603;
     color: white; }
 
 .videoBlock video {
