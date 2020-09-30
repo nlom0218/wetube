@@ -4,6 +4,7 @@ import multer from "multer";
 
 const multerVideo = multer({ dest: "uploads/videos/" });
 //만약 /uplads/vidoes/로 입력하면 컴퓨터의 root에 uploads를 만들 것이다. 조심***
+const multerAvatar = multer({ dest: "uploads/avatars/" });
 
 // Make locals Middleware
 // local변수를 global변수로 사용할 수 있도록 만들어 주는 Middleware
@@ -52,3 +53,5 @@ console.log(req.file)의 결과
 
 이중 path값을 Video model의 fileUrl로 지정한다.
 */
+
+export const uploadAvatar = multerAvatar.single("avatar");
