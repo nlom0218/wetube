@@ -19,12 +19,12 @@ export const postJion = async (req, res, next) => {
         email,
       });
       await User.register(user, password);
+      //=> passport local mongoose(github)에서 찾을 수 있다.
       next();
     } catch (error) {
       console.log(error);
       res.redirect(routes.home);
     }
-    // To Do : Log user in(사용자 로그인)
   }
 };
 
@@ -32,6 +32,7 @@ export const getLogin = (req, res) => {
   res.render("login", { pageTitle: "Login" });
 };
 export const postLogin = passport.authenticate("local", {
+  //passport 인증방식은 username(email), password를 찾아보도록 설정되어 있어있다.
   failureRedirect: routes.login,
   successRedirect: routes.home,
 });
@@ -75,10 +76,10 @@ export const kakaoLogin = passport.authenticate("kakao");
 
 export const kakaoLoginCallback = async (_, __, profile, cb) => {
   const id = profile._json.id;
-  const nickname = profile._json.properties.nickname;
+  const name = profile._json.properties.nickname;
   const profile_image = profile._json.properties.profile_image;
   const email = profile._json.kakao_account.email;
-  console.log(id, nickname, profile_image, email);
+  console.log(id, name, profile_image, email);
   try {
     const user = await User.findOne({ email });
     if (user) {
@@ -87,7 +88,7 @@ export const kakaoLoginCallback = async (_, __, profile, cb) => {
       return cb(null, user);
     } else {
       const newUser = await User.create({
-        name: nickname,
+        name,
         kakaoId: id,
         avatarUrl: profile_image,
         email,
@@ -103,6 +104,39 @@ export const postkakaoLogin = (req, res) => {
   res.redirect(routes.home);
 };
 // End
+
+//naver
+export const naverLogin = passport.authenticate("naver");
+
+export const naverLoginCallback = async (_, __, profile, cb) => {
+  const id = profile._json.id;
+  const email = profile._json.email;
+  const nickname = profile._json.nickname;
+  const avatarUrl = profile._json.profile_image;
+  try {
+    const user = await User.findOne({ email });
+    if (user) {
+      user.naverId = id;
+      user.save();
+      return cb(null, user);
+    } else {
+      const newUser = await User.create({
+        id,
+        email,
+        nickname,
+        avatarUrl,
+      });
+      return cb(null, newUser);
+    }
+  } catch (error) {
+    return cb(error);
+  }
+};
+
+export const postNaverLogin = (req, res) => {
+  res.redirect(routes.home);
+};
+//end
 
 export const logout = (req, res) => {
   req.logout();
@@ -149,11 +183,12 @@ export const postEditProfile = async (req, res) => {
         name,
         email,
         avatarUrl: file ? file.path : req.user.avatarUrl,
+        // file이 있으면 file.path 그렇지 않으면 req.user.avatarUrl
       }
     );
     res.redirect(routes.me);
   } catch (error) {
-    res.redirect(routes.editProfile);
+    res.redirect(`/user${routes.editProfile}`);
   }
 };
 
@@ -171,6 +206,7 @@ export const postChangePassword = async (req, res) => {
       return;
     }
     await req.user.changePassword(oldPassword, newPassword);
+    // https://www.npmjs.com/package/passport-local-mongoose
     res.redirect(routes.me);
   } catch (error) {
     res.status(400);

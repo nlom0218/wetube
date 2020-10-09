@@ -22,7 +22,15 @@ function handleVolumeClick() {
   if (videoPlayer.muted) {
     //음소거일때
     videoPlayer.muted = false;
-    volumeBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+    if (volumeRange.value >= 0.8) {
+      volumeBtn.innerHTML = `<i class="fas fa-volume-up"></i>`;
+    } else if (volumeRange.value >= 0.4) {
+      volumeBtn.innerHTML = `<i class="fas fa-volume-down"></i>`;
+    } else if (volumeRange.value >= 0.1) {
+      volumeBtn.innerHTML = `<i class="fas fa-volume-off"></i>`;
+    } else {
+      volumeBtn.innerHTML = `<i class="fas fa-volume-mute"></i>`;
+    }
     volumeRange.value = videoPlayer.volume;
   } else {
     //소리가 들릴 때
@@ -108,12 +116,14 @@ function handleDrag(event) {
     target: { value },
   } = event;
   videoPlayer.volume = value;
-  if (value >= 0.6) {
-    volumeBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
-  } else if (value >= 0.2) {
-    volumeBtn.innerHTML = '<i class="fas fa-volume-down"></i>';
+  if (volumeRange.value >= 0.8) {
+    volumeBtn.innerHTML = `<i class="fas fa-volume-up"></i>`;
+  } else if (volumeRange.value >= 0.4) {
+    volumeBtn.innerHTML = `<i class="fas fa-volume-down"></i>`;
+  } else if (volumeRange.value >= 0.1) {
+    volumeBtn.innerHTML = `<i class="fas fa-volume-off"></i>`;
   } else {
-    volumeBtn.innerHTML = '<i class="fas fa-volume-off"></i>';
+    volumeBtn.innerHTML = `<i class="fas fa-volume-mute"></i>`;
   }
 }
 

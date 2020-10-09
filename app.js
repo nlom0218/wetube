@@ -5,8 +5,8 @@ import helmet from "helmet";
 import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
 import passport from "passport";
-import session from "express-session";
-import MongoStore from "connect-mongo";
+import session from "express-session"; //session을 관리해주기 위해 필요하다
+import MongoStore from "connect-mongo"; //session에게 데이터를 MongoStore라는 저장소에 저장하라고 명령하는 미들웨어
 import mongoose from "mongoose";
 
 import { localsMiddleware } from "./middleware.js";
@@ -32,7 +32,7 @@ app.use(morgan("dev"));
 
 app.use(
   session({
-    secret: process.env.COOKIE_SECRET,
+    secret: process.env.COOKIE_SECRET, // => 필수!!!!
     resave: true,
     saveUninitialized: false,
     store: new CokieStore({ mongooseConnection: mongoose.connection }),
@@ -41,6 +41,8 @@ app.use(
 
 app.use(passport.initialize());
 app.use(passport.session());
+//passport는 자신이 찾은 사용자의 요청(req)를 object, 즉 req.user로 만들어준다
+//어메이징!
 
 // 전역미들웨어 사용
 app.use(localsMiddleware);

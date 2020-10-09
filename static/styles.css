@@ -138,6 +138,7 @@ input {
 
 .u-avatar {
   height: 80px;
+  width: 80px;
   background-color: #ea232c;
   border-radius: 50%; }
 
@@ -313,6 +314,9 @@ a {
     color: white; }
   .social-login .social-login--kakao {
     background-color: #f5c603;
+    color: white; }
+  .social-login .social-login--naver {
+    background-color: #19ce60;
     color: white; }
 
 .videoBlock video {

@@ -44,7 +44,7 @@ export const getUpload = (req, res) =>
 export const postUpload = async (req, res) => {
   const {
     body: { title, description },
-    file: { path },
+    file: { path }, // => localMiddleWare의 multer가 주는 것!
   } = req;
   //console.log(req.file);
   //const title = req.body.title
@@ -59,6 +59,7 @@ export const postUpload = async (req, res) => {
   });
   //console.log(newVideo);
   req.user.videos.push(newVideo.id);
+  // user 정보의 vidoes array에 업로드한 비디오의 아이디
   req.user.save();
   res.redirect(routes.videosDetail(newVideo.id));
 };

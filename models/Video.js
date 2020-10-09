@@ -41,3 +41,5 @@ export default model;
 model=실제 data, document name
 schema=형태
 */
+
+//=> init.js에 import하기

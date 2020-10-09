@@ -1,4 +1,6 @@
 //https://github.com/saintedlama/passport-local-mongoose#api-documentation
+// Passport Local Mongoose!!!!! 넘나 좋은거 꼭 쓰자~~~!!!!
+// => 패스워드 설정, 패스워드 확인 등등을 자동으로
 
 import mongoose from "mongoose";
 import passportLocalMongoose from "passport-local-mongoose";
@@ -33,3 +35,4 @@ UserSchema.plugin(passportLocalMongoose, { usernameField: "email" });
 const model = mongoose.model("User", UserSchema);
 
 export default model;
+//=> init.js에 import하기

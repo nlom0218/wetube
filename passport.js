@@ -8,9 +8,11 @@ import passport from "passport";
 import GithubStrategy from "passport-github";
 //import FacebookStrategy from "passport-facebook";
 import KakaoStrategy from "passport-kakao";
+import NaverStrategy from "passport-naver";
 import {
   githubLoginCallback,
   kakaoLoginCallback,
+  naverLoginCallback,
 } from "./controllers/userController";
 // requires the model with Passport-Local Mongoose plugged in
 import User from "./models/User";
@@ -36,7 +38,7 @@ passport.use(
   )
 );
 
-// Facebook
+// Kakao
 passport.use(
   new KakaoStrategy(
     {
@@ -44,6 +46,18 @@ passport.use(
       callbackURL: `http://localhost:4000${routes.kakaoCallback}`,
     },
     kakaoLoginCallback
+  )
+);
+
+//naver
+passport.use(
+  new NaverStrategy(
+    {
+      clientID: process.env.NAVER_ID,
+      clientSecret: process.env.NAVER_SECRET,
+      callbackURL: `http://localhost:4000/auth/naver/callback`,
+    },
+    naverLoginCallback
   )
 );
 

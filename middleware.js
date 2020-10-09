@@ -16,7 +16,7 @@ export const localsMiddleware = (req, res, next) => {
 };
 
 export const onlyPublic = (req, res, next) => {
-  //이 미들웨어는 로그인이 되어있을 때 이 페잊는 튕겨내라! 라는 역할이야~
+  //이 미들웨어는 로그인이 되어있을 때 이 페이지는 튕겨내라! 라는 역할이야~
   if (req.user) {
     res.redirect(routes.home);
   } else {
