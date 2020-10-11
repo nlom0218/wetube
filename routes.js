@@ -35,6 +35,12 @@ const KK_CALLBACK = "/auth/kakao/callback";
 const NAVER = "/auth/naver";
 const NAVER_CALLBACK = "/auth/naver/callback";
 
+// API
+const API = "/api";
+const REGISTER_VIEW = "/:id/view";
+const ADD_COMMENT = "/:id/comment";
+const DELECT_COMMENT = "/:id/delect-comment";
+
 const routes = {
   home: HOME,
   join: JOIN,
@@ -74,6 +80,8 @@ const routes = {
       return DELETE_VIDEO;
     }
   },
+
+  // Social Login
   github: GITHUB,
   githubCallback: GITHUB_CALLBACK,
   me: ME,
@@ -83,6 +91,12 @@ const routes = {
   kakaoCallback: KK_CALLBACK,
   naver: NAVER,
   naverCallback: NAVER_CALLBACK,
+
+  // API
+  api: API,
+  registerView: REGISTER_VIEW,
+  addComment: ADD_COMMENT,
+  delectComment: DELECT_COMMENT,
 };
 
 export default routes;

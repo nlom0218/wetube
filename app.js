@@ -13,6 +13,7 @@ import { localsMiddleware } from "./middleware.js";
 import userRouter from "./routers/userRouter.js";
 import videoRouter from "./routers/videoRouter.js";
 import globalRouter from "./routers/globalRouter.js";
+import apiRouter from "./routers/apiRouter";
 import routes from "./routes";
 
 import "./passport";
@@ -56,5 +57,6 @@ app.use("/static", express.static("static"));
 app.use(routes.home, globalRouter);
 app.use(routes.users, userRouter);
 app.use(routes.videos, videoRouter);
+app.use(routes.api, apiRouter);
 
 export default app;
