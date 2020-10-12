@@ -1,7 +1,6 @@
 import routes from "../routes";
 import Video from "../models/Video";
 import Comment from "../models/Comment";
-import User from "../models/User";
 
 //fucntion에 async를 추가함으로써 function의 어떤 부분은 꼭 기다려야 한다.
 export const home = async (req, res) => {
@@ -46,7 +45,7 @@ export const getUpload = (req, res) =>
 export const postUpload = async (req, res) => {
   const {
     body: { title, description },
-    file: { path }, // => localMiddleWare의 multer가 주는 것!
+    file: { location }, // => localMiddleWare의 multer가 주는 것!
   } = req;
   //console.log(req.file);
   //const title = req.body.title
@@ -54,7 +53,7 @@ export const postUpload = async (req, res) => {
   //const path = req.file.path
   const newVideo = await Video.create({
     //VidoeSchema을 기준으로 밑의 정보가 추가 업로드 된 문서를 데이터베이스에 저장
-    fileUrl: path,
+    fileUrl: location,
     title,
     description,
     creator: req.user.id,

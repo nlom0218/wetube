@@ -160,7 +160,6 @@ export const userDetail = async (req, res) => {
   } = req;
   try {
     const user = await User.findById(id).populate("videos");
-    console.log(user);
     res.render("userDetail", { pageTitle: "User Detail", user });
   } catch (error) {
     res.redirect(routes.home);
@@ -182,7 +181,7 @@ export const postEditProfile = async (req, res) => {
       {
         name,
         email,
-        avatarUrl: file ? file.path : req.user.avatarUrl,
+        avatarUrl: file ? file.location : req.user.avatarUrl,
         // file이 있으면 file.path 그렇지 않으면 req.user.avatarUrl
       }
     );

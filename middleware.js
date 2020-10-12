@@ -1,10 +1,34 @@
 import routes from "./routes";
+import multerS3 from "multer-s3";
+import aws from "aws-sdk";
 import multer from "multer";
 //Multer는 파일 업로드를 위해 사용되는 multipart/form-data 를 다루기 위한 node.js의 미들웨어이다.
 
-const multerVideo = multer({ dest: "uploads/videos/" });
-//만약 /uplads/vidoes/로 입력하면 컴퓨터의 root에 uploads를 만들 것이다. 조심***
-const multerAvatar = multer({ dest: "uploads/avatars/" });
+const s3 = new aws.S3({
+  accessKeyId: process.env.AWS_KEY,
+  secretAccessKey: process.env.AWS_PRIVATE_KEY,
+  region: "ap-northeast-1",
+});
+
+const multerVideo = multer({
+  storage: multerS3({
+    s3,
+    acl: "public-read",
+    bucket: "wetube-khd/video",
+  }),
+});
+
+const multerAvatar = multer({
+  storage: multerS3({
+    s3,
+    acl: "public-read",
+    bucket: "wetube-khd/avatar",
+  }),
+});
+
+// const multerVideo = multer({ dest: "uploads/videos/" });
+// //만약 /uplads/vidoes/로 입력하면 컴퓨터의 root에 uploads를 만들 것이다. 조심***
+//const multerAvatar = multer({ dest: "uploads/avatars/" });
 
 // Make locals Middleware
 // local변수를 global변수로 사용할 수 있도록 만들어 주는 Middleware
